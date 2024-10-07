@@ -7,8 +7,12 @@
 </head>
 <body>
     <h1>{{.titre}}</h1>
+    <span>{{.Filiere}}</span>
+    <span>{{.Niveau}}</span>
+    <span>{{.NbrEtudiant}}</span>
     <div>
-        <p></p>
+        {{range .Users}}
+        <p>{{.FristName}} {{.LastName}} </p>
     </div>
 </body>
 </html>
