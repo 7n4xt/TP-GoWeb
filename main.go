@@ -32,5 +32,10 @@ func main() {
 		data := Ynov{"307", "Cyber", "B1", 5, []User{{"Abdulmalek", "ESUGHI", 20, "Masculin"}, {"Enzo", "ROSSI", 18, "Masculin"}}}
 		temp.ExecuteTemplate(w, "index", data)
 	})
+
+	http.HandleFunc("/change", func(w http.ResponseWriter, r *http.Request) {
+
+	})
+
 	http.ListenAndServe("localhost:8080", nil)
 }
