@@ -1,0 +1,24 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Main page</title>
+</head>
+
+<body>
+    <h1>{{.titre}}</h1>
+    <span>{{.Filiere}}</span>
+    <span>{{.Niveau}}</span>
+    <span>{{.NbrEtudiant}}</span>
+    <ul>
+        {{range .Users}}
+        <p>First name: {{.FristName}} last name: {{.LastName}} age:{{.age}} sex:{{.sex}}</p>
+        {{end}}
+    </ul>
+</body>
+
+</html>
+{{end}}
