@@ -12,21 +12,21 @@
 <body>
     
     <nav>
-        <a href="/promo"></a>
-        <a href="/change"></a>
+        <a href="/promo"> Main Page</a>
+        <a href="/change"> Pair Or Not</a>
         <a href="/change"></a>
         <a href="/change"></a>
     </nav>
     
-    <h1>{{.titre}}</h1>
+    <h1>{{.Title}}</h1>
     <div>
-        <span>{{.Sector}}</span>
-        <span>{{.Level}}</span>
-        <span>{{.NbrStudent}}</span>
+        <span>Sector ({{.Sector}})</span>
+        <span> Level ({{.Level}})</span>
+        <span> Students in the class ({{.NbrStudent}})</span>
     </div>
     <ul>
         {{range .Users}}
-        <p>First name: {{.FristName}} last name: {{.LastName}} age:{{.age}} sex:{{.sex}}</p>
+        <p>{{.FirstName}} {{.LastName}} age: {{.Age}} sex: {{.Sex}}</p>
         {{end}}
     </ul>
 </body>

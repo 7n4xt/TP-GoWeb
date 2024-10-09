@@ -1,22 +1,35 @@
-*{
-    padding: 0%;
-    margin: 0%;
+* {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
-    list-style-type: none
+    list-style-type: none;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 1rem;  
 }
 
 div {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5%;
 }
+
 h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
+
 ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;  
 }
+
