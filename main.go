@@ -27,6 +27,13 @@ type Change struct {
 	Counter int
 }
 
+type StockageForm struct {
+	CheckValue bool
+	Value      string
+}
+
+var stockageForm = StockageForm{false, ""}
+
 func main() {
 	temp, tempErr := template.ParseGlob("Templates/*.html")
 	if tempErr != nil {
@@ -58,10 +65,20 @@ func main() {
 		changeState.Pair = changeState.Counter%2 == 0
 		temp.ExecuteTemplate(w, "changePage", changeState)
 	})
+	http.HandleFunc("/user/form", func(w http.ResponseWriter, r *http.Request) {
+		temp.ExecuteTemplate(w, "Form", nil)
+	})
 
-	fs := http.FileServer(http.Dir("./design"))
-	http.Handle("/design/", http.StripPrefix("/design/", fs))
+	http.HandleFunc("/user/treatment", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Redirect(w, r, "/erreur?code=400&message=Oups méthode incorrecte", http.StatusMovedPermanently)
+			return
+		}
 
-	fmt.Println("Server starting on :8080")
-	http.ListenAndServe("localhost:8080", nil)
+		fs := http.FileServer(http.Dir("./design"))
+		http.Handle("/design/", http.StripPrefix("/design/", fs))
+
+		fmt.Println("Server starting on :8080")
+		http.ListenAndServe("localhost:8080", nil)
+	})
 }

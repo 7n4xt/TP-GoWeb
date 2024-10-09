@@ -1,0 +1,35 @@
+{{define "Form"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>display
+    </title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/promo">Main</a></li>
+            <li><a href="/change">Pair Or Not</a></li>
+            <li><a href="/user/form">Form</a></li>
+            <li><a href="/user/display">Display</a></li>
+        </ul>
+    </nav>
+    <form action="/user/traitement" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="Name" id="Name">
+        <label for="FirstName">FirstName</label>
+        <input type="text" name="FirstName" id="FirstName">
+        <label for="date">Date de naissance</label>
+        <input type="date" name="date" id="date">
+        <select name="sex" id="sex" required>
+            <option value="">-- Select --</option>
+            <option value="masculin">Male</option>
+            <option value="feminin">Female</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+{{end}}
