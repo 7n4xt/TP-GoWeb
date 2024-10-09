@@ -33,8 +33,6 @@ func main() {
 		fmt.Printf("Oups erreur avec le chargement du Template %s", tempErr.Error())
 		os.Exit(2)
 	}
-	fs := http.FileServer(http.Dir("design"))
-	http.Handle("/design/", http.StripPrefix("/design/", fs))
 
 	http.HandleFunc("/promo", func(w http.ResponseWriter, r *http.Request) {
 		data := Ynov{
@@ -60,6 +58,9 @@ func main() {
 		changeState.Pair = changeState.Counter%2 == 0
 		temp.ExecuteTemplate(w, "changePage", changeState)
 	})
+
+	fs := http.FileServer(http.Dir("./design"))
+	http.Handle("/design/", http.StripPrefix("/design/", fs))
 
 	fmt.Println("Server starting on :8080")
 	http.ListenAndServe("localhost:8080", nil)
