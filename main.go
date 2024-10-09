@@ -14,11 +14,15 @@ type User struct {
 	sex       string
 }
 type Ynov struct {
-	titre       string
-	Filiere     string
-	Niveau      string
-	NbrEtudiant int
-	Users       []User
+	titre      string
+	Sector     string
+	Level      string
+	NbrStudent int
+	Users      []User
+}
+type Change struct {
+	Pair    bool
+	Counter int
 }
 
 func main() {
@@ -29,7 +33,7 @@ func main() {
 	}
 
 	http.HandleFunc("/promo", func(w http.ResponseWriter, r *http.Request) {
-		data := Ynov{"307", "Cyber", "B1", 2, []User{{"Abdulmalek", "ESUGHI", 20, "Masculin"}, {"Enzo", "ROSSI", 18, "Masculin"}}}
+		data := Ynov{"307", "Cyber", "B1", 2, []User{{"Abdulmalek", "ESUGHI", 20, "male"}, {"Enzo", "ROSSI", 18, "male"}}}
 		temp.ExecuteTemplate(w, "index", data)
 	})
 
