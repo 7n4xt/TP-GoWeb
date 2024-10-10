@@ -7,27 +7,50 @@
     <title>display</title>
     <link rel="stylesheet" href="/design/form.css">
 </head>
-<body>
-    <nav>
-        <a href="/promo">Main Page</a>
-        <a href="/change">Pair Or Not</a>
-        <a href="/user/form">Form</a>
-        <a href="/user/display">Display</a> 
-    </nav>
-    <form action="/user/traitement" method="POST">
-        <label for="name">Name</label>
-        <input type="text" name="Name" id="Name">
-        <label for="FirstName">FirstName</label>
-        <input type="text" name="FirstName" id="FirstName">
-        <label for="date">Date de naissance</label>
-        <input type="date" name="date" id="date">
-        <select name="sex" id="sex" required>
-            <option value="">-- Select --</option>
-            <option value="masculin">Male</option>
-            <option value="feminin">Female</option>
-        </select>
-        <button type="submit">Submit</button>
-    </form>
+<nav>
+    <a href="/promo">Main Page</a>
+    <a href="/change">Pair Or Not</a>
+    <a href="/user/form">Form</a>
+    <a href="/user/display">Display</a>
+</nav>
+
+<div class="container">
+    <div class="form-card">
+        <h1>Student Registration</h1>
+        <form action="/user/form" method="POST">
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="birthDate">Date of Birth</label>
+                <input type="date" id="birthDate" name="birthDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="gender-group">
+                    <div class="gender-option">
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
 {{end}}

@@ -1,11 +1,8 @@
-*{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    text-decoration: none;
-    list-style-type: none  
-     
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -14,7 +11,6 @@ body {
 }
 
 nav {
-
     background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
     padding: 1.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -22,7 +18,6 @@ nav {
 
 nav a {
     color: white;
-    display: inline-flex;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -36,4 +31,98 @@ nav a:hover {
 
 nav a:visited {
     opacity: 0.8;
+}
+
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.form-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+    outline: none;
+    border-color: #00c6fb;
+    box-shadow: 0 0 0 2px rgba(0, 198, 251, 0.1);
+}
+
+.gender-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.gender-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+input[type="radio"] {
+    accent-color: #005bea;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        margin: 1rem;
+    }
 }

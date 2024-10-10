@@ -69,6 +69,9 @@ func main() {
 		temp.ExecuteTemplate(w, "Form", nil)
 	})
 
+	http.HandleFunc("/user/treatment", func(w http.ResponseWriter, r *http.Request) {
+
+	})
 	fs := http.FileServer(http.Dir("./design"))
 	http.Handle("/design/", http.StripPrefix("/design/", fs))
 
