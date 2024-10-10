@@ -43,7 +43,7 @@ func main() {
 
 	http.HandleFunc("/promo", func(w http.ResponseWriter, r *http.Request) {
 		data := Ynov{
-			Title:      "307",
+			Title:      "B1 Cybersecurity",
 			Sector:     "Cyber Security",
 			Level:      "B1",
 			NbrStudent: 2,

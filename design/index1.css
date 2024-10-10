@@ -2,43 +2,112 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    list-style-type: none;
-    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-a:visited {
-    opacity: .5;
+body {
+    background-color: #f5f5f5;
+    color: #333;
 }
 
 nav {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 1rem;  
-    text-decoration: black;
-    background-color: aqua;
-    box-shadow: 5px;
+    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+    padding: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5%;
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+nav a:visited {
+    opacity: 0.8;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    color: #2c3e50;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2.5rem;
 }
 
-ul {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;  
+.class-info {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
+.class-info p {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    margin: 0 0.5rem;
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.students-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.student-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.student-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.student-age {
+    color: #666;
+}
+
+.gender-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 1rem;
+}
