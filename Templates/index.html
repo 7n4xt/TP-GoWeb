@@ -12,10 +12,10 @@
 <body>
     
     <nav>
-        <a href="/promo"> Main Page</a>
-        <a href="/change"> Pair Or Not</a>
-        <a href="/change"></a>
-        <a href="/change"></a>
+        <a href="/promo">Main Page</a>
+        <a href="/change">Pair Or Not</a>
+        <a href="/user/form">Form</a>
+        <a href="/user/display">Display</a>
     </nav>
     
     <h1>{{.Title}}</h1>
@@ -26,7 +26,12 @@
     </div>
     <ul>
         {{range .Users}}
-        <p>{{.FirstName}} {{.LastName}} age: {{.Age}} sex: {{.Sex}}</p>
+        <p>{{.FirstName}} {{.LastName}} age: {{.Age}} </p>
+        {{end}}
+        {{if .Sex true}}
+        <img src="/image/male-symbol-isolated-icon-on-transparent-background-free-png-1901627310.png" alt="male icon png">
+        {{else}}
+        <img src="/image/9c46aaMzi-959875563.png" alt="female icon png">
         {{end}}
     </ul>
 </body>

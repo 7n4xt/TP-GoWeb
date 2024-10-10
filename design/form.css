@@ -3,22 +3,20 @@
     margin: 0;
     box-sizing: border-box;
     text-decoration: none;
-    list-style-type: none
+    list-style-type: none   
 }
 
 nav {
     display: flex;
     justify-content: center;
-    gap: 15px;
     padding: 1rem;  
-    text-decoration: black;
     background-color: aqua;
-    box-shadow: 20px;
+    box-shadow: 5px;
 }
 
-p {
+ul {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
+    text-decoration: black;
+    gap: 15px;
 }

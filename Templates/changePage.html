@@ -10,11 +10,13 @@
 <body>
 
     <nav>
-        <a href="/promo"> Main Page</a>
-        <a href="/change"> Pair Or Not</a>
+        <a href="/promo">Main Page</a>
+        <a href="/change">Pair Or Not</a>
+        <a href="/user/form">Form</a>
+        <a href="/user/display">Display</a>
     </nav>
 
-    {{if eq .Pair true}}
+    {{if .Pair true}}
     <p>The number is a pair</p>
     {{else}}
     <p>The number is not a pair</p>

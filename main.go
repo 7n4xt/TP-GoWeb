@@ -11,7 +11,7 @@ type User struct {
 	FirstName string
 	LastName  string
 	Age       int
-	Sex       string
+	Sex       bool
 }
 
 type Ynov struct {
@@ -48,8 +48,8 @@ func main() {
 			Level:      "B1",
 			NbrStudent: 2,
 			Users: []User{
-				{FirstName: "Abdulmalek", LastName: "ESUGHI", Age: 20, Sex: "male"},
-				{FirstName: "Enzo", LastName: "ROSSI", Age: 18, Sex: "male"},
+				{FirstName: "Abdulmalek", LastName: "ESUGHI", Age: 20, Sex: true},
+				{FirstName: "Enzo", LastName: "ROSSI", Age: 18, Sex: true},
 			},
 		}
 		temp.ExecuteTemplate(w, "index", data)
@@ -69,16 +69,9 @@ func main() {
 		temp.ExecuteTemplate(w, "Form", nil)
 	})
 
-	http.HandleFunc("/user/treatment", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Redirect(w, r, "/erreur?code=400&message=Oups méthode incorrecte", http.StatusMovedPermanently)
-			return
-		}
+	fs := http.FileServer(http.Dir("./design"))
+	http.Handle("/design/", http.StripPrefix("/design/", fs))
 
-		fs := http.FileServer(http.Dir("./design"))
-		http.Handle("/design/", http.StripPrefix("/design/", fs))
-
-		fmt.Println("Server starting on :8080")
-		http.ListenAndServe("localhost:8080", nil)
-	})
+	fmt.Println("Server starting on :8080")
+	http.ListenAndServe("localhost:8080", nil)
 }
