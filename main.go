@@ -43,13 +43,19 @@ func main() {
 
 	http.HandleFunc("/promo", func(w http.ResponseWriter, r *http.Request) {
 		data := Ynov{
-			Title:      "B1 Cybersecurity",
+			Title:      "B1 CyberSecurity",
 			Sector:     "Cyber Security",
 			Level:      "B1",
 			NbrStudent: 2,
 			Users: []User{
 				{FirstName: "Abdulmalek", LastName: "ESUGHI", Age: 20, Sex: true},
 				{FirstName: "Enzo", LastName: "ROSSI", Age: 18, Sex: true},
+				{FirstName: "leo", LastName: "GOMEZ", Age: 23, Sex: true},
+				{FirstName: "Maxime", LastName: "DEBRUN", Age: 17, Sex: true},
+				{FirstName: "Adrien", LastName: "DIRIX", Age: 20, Sex: true},
+				{FirstName: "Anissa", LastName: "BOUKERCHE", Age: 18, Sex: false},
+				{FirstName: "Sylia", LastName: "ABOUD", Age: 18, Sex: false},
+				{FirstName: "Eddy", LastName: "AMIR", Age: 18, Sex: true},
 			},
 		}
 		temp.ExecuteTemplate(w, "index", data)
@@ -72,8 +78,11 @@ func main() {
 	http.HandleFunc("/user/treatment", func(w http.ResponseWriter, r *http.Request) {
 
 	})
+
 	fs := http.FileServer(http.Dir("./design"))
 	http.Handle("/design/", http.StripPrefix("/design/", fs))
+	ts := http.FileServer(http.Dir("./image"))
+	http.Handle("/image/", http.StripPrefix("/image/", ts))
 
 	fmt.Println("Server starting on :8080")
 	http.ListenAndServe("localhost:8080", nil)

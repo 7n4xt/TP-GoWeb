@@ -36,10 +36,10 @@
                         <div class="student-name">{{.FirstName}} {{.LastName}}</div>
                         <div class="student-age">Age: {{.Age}}</div>
                     </div>
-                    {{if .Sex true}}
-                    <img class="gender-icon" src="/api/placeholder/24/24" alt="Male">
+                    {{if eq .Sex true}}
+                    <img class="gender-icon" src="/image/male-symbol-isolated-icon-on-transparent-background-free-png-1901627310.png" alt="Male">
                     {{else}}
-                    <img class="gender-icon" src="/api/placeholder/24/24" alt="Female">
+                    <img class="gender-icon" src="/image/9c46aaMzi-959875563.png" alt="Female">
                     {{end}}
                 </div>
             </div>
