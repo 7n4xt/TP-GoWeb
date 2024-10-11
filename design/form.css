@@ -106,7 +106,6 @@ input[type="radio"] {
 button[type="submit"] {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
     color: white;
     border: none;
     border-radius: 5px;

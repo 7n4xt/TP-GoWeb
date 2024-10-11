@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"regexp"
 )
 
 type User struct {
@@ -27,18 +28,35 @@ type Change struct {
 	Counter int
 }
 
-type StockageForm struct {
-	CheckValue bool
-	Value      string
+type FormStorage struct {
+	IsValid bool
+	Value   string
 }
 
-var stockageForm = StockageForm{false, ""}
+type DisplayPage struct {
+	IsValid   bool
+	LastName  string
+	FirstName string
+	Date      string
+	Gender    string
+	IsEmpty   bool
+}
+
+var formStorageLastName = FormStorage{false, ""}
+var formStorageFirstName = FormStorage{false, ""}
+var formStorageDate = FormStorage{false, ""}
+var formStorageGender = FormStorage{false, ""}
 
 func main() {
 	temp, tempErr := template.ParseGlob("Templates/*.html")
 	if tempErr != nil {
-		fmt.Printf("Oups erreur avec le chargement du Template %s", tempErr.Error())
+		fmt.Printf("Error loading templates: %s", tempErr.Error())
 		os.Exit(2)
+	}
+
+	changeState := &Change{
+		Pair:    false,
+		Counter: 0,
 	}
 
 	http.HandleFunc("/promo", func(w http.ResponseWriter, r *http.Request) {
@@ -58,32 +76,102 @@ func main() {
 				{FirstName: "Eddy", LastName: "AMIR", Age: 18, Sex: true},
 			},
 		}
-		temp.ExecuteTemplate(w, "index", data)
+		if err := temp.ExecuteTemplate(w, "index", data); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	})
-
-	changeState := &Change{
-		Pair:    false,
-		Counter: 0,
-	}
 
 	http.HandleFunc("/change", func(w http.ResponseWriter, r *http.Request) {
 		changeState.Counter++
 		changeState.Pair = changeState.Counter%2 == 0
-		temp.ExecuteTemplate(w, "changePage", changeState)
+		if err := temp.ExecuteTemplate(w, "changePage", changeState); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	})
+
 	http.HandleFunc("/user/form", func(w http.ResponseWriter, r *http.Request) {
-		temp.ExecuteTemplate(w, "Form", nil)
+		if err := temp.ExecuteTemplate(w, "Form", nil); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	})
 
 	http.HandleFunc("/user/treatment", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Redirect(w, r, "/error?code=400&message=Oops+incorrect+method", http.StatusSeeOther)
+			return
+		}
 
+		checkValueLastName, _ := regexp.MatchString("^[\\p{L}-]{1,32}$", r.FormValue("lastname"))
+		if !checkValueLastName {
+			formStorageLastName = FormStorage{false, ""}
+			http.Redirect(w, r, "/error?code=400&message=Oops+invalid+last+name+data", http.StatusSeeOther)
+			return
+		}
+		formStorageLastName = FormStorage{true, r.FormValue("lastname")}
+
+		checkValueFirstName, _ := regexp.MatchString("^[\\p{L}-]{1,32}$", r.FormValue("firstname"))
+		if !checkValueFirstName {
+			formStorageFirstName = FormStorage{false, ""}
+			http.Redirect(w, r, "/error?code=400&message=Oops+invalid+first+name+data", http.StatusSeeOther)
+			return
+		}
+		formStorageFirstName = FormStorage{true, r.FormValue("firstname")}
+
+		date := r.FormValue("date")
+		if date == "" {
+			http.Redirect(w, r, "/error?code=400&message=Date+is+required", http.StatusSeeOther)
+			return
+		}
+		formStorageDate = FormStorage{true, date}
+
+		gender := r.FormValue("gender")
+		if gender != "male" && gender != "female" && gender != "other" {
+			http.Redirect(w, r, "/error?code=400&message=Invalid+gender+value", http.StatusSeeOther)
+			return
+		}
+		formStorageGender = FormStorage{true, gender}
+
+		http.Redirect(w, r, "/user/display", http.StatusSeeOther)
+	})
+
+	http.HandleFunc("/user/display", func(w http.ResponseWriter, r *http.Request) {
+		data := DisplayPage{
+			IsValid:   formStorageLastName.IsValid && formStorageFirstName.IsValid && formStorageDate.IsValid && formStorageGender.IsValid,
+			LastName:  formStorageLastName.Value,
+			FirstName: formStorageFirstName.Value,
+			Date:      formStorageDate.Value,
+			Gender:    formStorageGender.Value,
+			IsEmpty: !formStorageLastName.IsValid && formStorageLastName.Value == "" &&
+				!formStorageFirstName.IsValid && formStorageFirstName.Value == "" &&
+				!formStorageDate.IsValid && formStorageDate.Value == "" &&
+				!formStorageGender.IsValid && formStorageGender.Value == "",
+		}
+		if err := temp.ExecuteTemplate(w, "Display", data); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
+	http.HandleFunc("/error", func(w http.ResponseWriter, r *http.Request) {
+		code := r.FormValue("code")
+		message := r.FormValue("message")
+		if code != "" && message != "" {
+			if err := temp.ExecuteTemplate(w, "Error", map[string]string{
+				"Code":    code,
+				"Message": message,
+			}); err != nil {
+				http.Error(w, "Error rendering error page", http.StatusInternalServerError)
+			}
+			return
+		}
+		http.Error(w, "Sorry, an error occurred", http.StatusInternalServerError)
 	})
 
 	fs := http.FileServer(http.Dir("./design"))
 	http.Handle("/design/", http.StripPrefix("/design/", fs))
-	ts := http.FileServer(http.Dir("./image"))
-	http.Handle("/image/", http.StripPrefix("/image/", ts))
 
-	fmt.Println("Server starting on :8080")
-	http.ListenAndServe("localhost:8080", nil)
+	fmt.Println("Server starting on http://localhost:8080")
+	if err := http.ListenAndServe("localhost:8080", nil); err != nil {
+		fmt.Printf("Server error: %s\n", err)
+		os.Exit(1)
+	}
 }

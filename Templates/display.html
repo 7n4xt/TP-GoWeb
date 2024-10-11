@@ -1,0 +1,58 @@
+{{define "Display"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Details</title>
+    <link rel="stylesheet" href="/design/changePage.css">
+</head>
+<body>
+    <nav>
+        <a href="/promo">Main Page</a>
+        <a href="/change">Pair Or Not</a>
+        <a href="/user/form">Form</a>
+        <a href="/user/display">Display</a>
+    </nav>
+
+    <div class="container">
+        <h1>Registration Details</h1>
+
+        {{if .IsEmpty}}
+            <div class="message-box">
+                <p>No data available. Please fill out the form first.</p>
+                <a href="/user/form" class="button">Go to Form</a>
+            </div>
+        {{else}}
+            {{if .IsValid}}
+                <div class="result">
+                    <div class="detail-item">
+                        <span class="label">Last Name:</span>
+                        <span class="value">{{.LastName}}</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="label">First Name:</span>
+                        <span class="value">{{.FirstName}}</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="label">Birth Date:</span>
+                        <span class="value">{{.Date}}</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="label">Gender:</span>
+                        <span class="value">{{.Gender}}</span>
+                    </div>
+                </div>
+            {{else}}
+                <div class="message-box error">
+                    <p>Invalid form data. Please try again.</p>
+                </div>
+            {{end}}
+            <a href="/user/form" class="button">Submit Another Form</a>
+        {{end}}
+    </div>
+</body>
+</html>
+{{end}}
