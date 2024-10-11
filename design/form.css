@@ -107,6 +107,7 @@ button[type="submit"] {
     width: 100%;
     padding: 1rem;
     color: white;
+    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
     border: none;
     border-radius: 5px;
     font-size: 1rem;

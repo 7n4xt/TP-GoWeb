@@ -96,15 +96,10 @@ func main() {
 	})
 
 	http.HandleFunc("/user/treatment", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Redirect(w, r, "/error?code=400&message=Oops+incorrect+method", http.StatusSeeOther)
-			return
-		}
-
 		checkValueLastName, _ := regexp.MatchString("^[\\p{L}-]{1,32}$", r.FormValue("lastname"))
 		if !checkValueLastName {
 			formStorageLastName = FormStorage{false, ""}
-			http.Redirect(w, r, "/error?code=400&message=Oops+invalid+last+name+data", http.StatusSeeOther)
+			http.Redirect(w, r, "/error?code=400&message= invalid lastname data", http.StatusMovedPermanently)
 			return
 		}
 		formStorageLastName = FormStorage{true, r.FormValue("lastname")}
@@ -112,21 +107,21 @@ func main() {
 		checkValueFirstName, _ := regexp.MatchString("^[\\p{L}-]{1,32}$", r.FormValue("firstname"))
 		if !checkValueFirstName {
 			formStorageFirstName = FormStorage{false, ""}
-			http.Redirect(w, r, "/error?code=400&message=Oops+invalid+first+name+data", http.StatusSeeOther)
+			http.Redirect(w, r, "/error?code=400&message=Oops+invalid+first+name+data", http.StatusMovedPermanently)
 			return
 		}
 		formStorageFirstName = FormStorage{true, r.FormValue("firstname")}
 
 		date := r.FormValue("date")
 		if date == "" {
-			http.Redirect(w, r, "/error?code=400&message=Date+is+required", http.StatusSeeOther)
+			http.Redirect(w, r, "/error?code=400&message=Date+is+required", http.StatusMovedPermanently)
 			return
 		}
-		formStorageDate = FormStorage{true, date}
+		formStorageDate = FormStorage{true, r.FormValue("date")}
 
 		gender := r.FormValue("gender")
 		if gender != "male" && gender != "female" && gender != "other" {
-			http.Redirect(w, r, "/error?code=400&message=Invalid+gender+value", http.StatusSeeOther)
+			http.Redirect(w, r, "/error?code=400&message=Invalid+gender+value", http.StatusMovedPermanently)
 			return
 		}
 		formStorageGender = FormStorage{true, gender}
