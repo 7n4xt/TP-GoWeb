@@ -46,7 +46,7 @@ func main() {
 			Title:      "B1 CyberSecurity",
 			Sector:     "Cyber Security",
 			Level:      "B1",
-			NbrStudent: 2,
+			NbrStudent: 8,
 			Users: []User{
 				{FirstName: "Abdulmalek", LastName: "ESUGHI", Age: 20, Sex: true},
 				{FirstName: "Enzo", LastName: "ROSSI", Age: 18, Sex: true},

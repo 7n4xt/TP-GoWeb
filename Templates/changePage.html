@@ -1,12 +1,14 @@
 {{define "changePage"}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change</title>
     <link rel="stylesheet" href="/design/changePage.css">
 </head>
+
 <body>
 
     <nav>
@@ -15,13 +17,21 @@
         <a href="/user/form">Form</a>
         <a href="/user/display">Display</a>
     </nav>
-
-    {{if eq .Pair true}}
-    <p>The number is a pair</p>
-    {{else}}
-    <p>The number is not a pair</p>
-    {{end}}
-    <p>number of visits is {{.Counter}}</p>
+    <div class="container">
+        {{if eq .Pair true}}
+        <div class="ispair">
+            <p>The number is a pair</p>
+        </div>
+        {{else}}
+        <div class="ispair">
+            <p>The number is not a pair</p>
+        </div>
+        {{end}}
+        <div class="visits">
+            <p>number of visits is {{.Counter}}</p>
+        </div>
+    </div>
 </body>
+
 </html>
 {{end}}
